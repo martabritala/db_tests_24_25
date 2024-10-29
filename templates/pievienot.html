@@ -1,7 +1,7 @@
 {% extends "index.html"%}
 
 {% block saturs%}
-
+<!-- Skolēnu atzīmju pievienošana -->
 <form>
     <input type="number">
     <select></select>
@@ -9,6 +9,24 @@
     <input type="submit" value="Pievienot atzīmi!">
 </form>
 
+<!-- Skolotāju sasaiste ar priekšmetiem -->
+
+<form>
+    <select></select>
+    <select></select>
+    <input type="submit" value="Pievienot skolotāju priekšmetam!">
+</form>
+
+<h1>Skolēnu visas atzīmes:</h1>
+<table class="table">
+    <tr>
+        <th>Vārds</th>
+        <th>Uzvārds</th>
+        <th>Priekšmets</th>
+        <th>Atzīme</th>
+    </tr>
+</table>
+<h1>Skolotāju piesaiste priekšmetiem:</h1>
 <table class="table">
     <tr>
         <th>Vārds</th>

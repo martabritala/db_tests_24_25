@@ -7,23 +7,29 @@
     <body>
 <!-- Navigācija -->
 
-<a href="/">Sākums (skolēnu pievienošana)</a>
-<a href="/pievienot">Atzīmju pievienošana</a>
-<a href="/atzimes">Visas atzīmes</a>
+<a href="/">Sākums (skolēnu pievienošana)</a><br>
+<a href="/pievienot">Atzīmju pievienošana, skolotāju sasaiste</a><br>
+<a href="/atzimes">Vidējās atzīmes</a>
 <hr>
 {% block saturs%}
         <h1>Sveiki!</h1>
-
-        <form>
+<!-- SKolēni -->
+        <form method="post">
             <input type="text" id="name" name="name" placeholder="Vārds">
             <input type="text" id="lastname" name="lastname" placeholder="Uzvārds">
             <input type="submit" value="Pievienot skolēnu!">
-        </form>    
+        </form>  
+        
+        <h3>{{aizsutitais}}</h3>
+
+<!-- Skolotāji -->
+
         <form>
             <input type="text" id="sk_name" name="sk_name" placeholder="Vārds">
             <input type="text" id="sk_lastname" name="sk_lastname" placeholder="Uzvārds">
             <input type="submit" value="Pievienot skolotāju!">
-        </form>    
+        </form>  
+<!-- Priekšmeti   -->
         <form>
             <input type="text" id="prieksmets" name="prieksmets" placeholder="Priekšmeta nosaukums">
             <input type="submit" value="Pievienot priekšmetu!">
