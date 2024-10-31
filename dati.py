@@ -3,7 +3,7 @@ import sqlite3
 
 conn = sqlite3.connect("dati.db", check_same_thread=False)
 
-def tabulas_izveide():
+def skolenu_tabulas_izveide():
     cur = conn.cursor()
     cur.execute(
         """
@@ -16,9 +16,26 @@ def tabulas_izveide():
     )
     conn.commit()
 
+
+def skolotaju_tabulas_izveide():
+    cur = conn.cursor()
+    cur.execute(
+        """
+        CREATE TABLE skolotaji(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        vards TEXT NOT NULL,
+        uzvards TEXT NOT NULL
+        )
+        """
+    )
+    conn.commit()
+
+# skolotaju_tabulas_izveide()
+
 # tabulas_izveide()
 
 def pievienot_skolenu(vards, uzvards):
+    print(vards, uzvards)
     cur = conn.cursor()
     cur.execute(
         f"""
@@ -26,3 +43,36 @@ def pievienot_skolenu(vards, uzvards):
         """
     )
     conn.commit()
+
+
+def pievienot_skolotaju(vards, uzvards):
+    cur = conn.cursor()
+    cur.execute(
+    f"""
+    INSERT INTO skolotaji(vards, uzvards) VALUES("{vards}","{uzvards}")
+    """
+    )
+
+    print(vards, uzvards)
+
+def pievienot_prieksmetu(prieksmets):
+    print(prieksmets)
+
+def iegut_skolenus():
+    cur = conn.cursor()
+    cur.execute(
+        """SELECT vards, uzvards FROM skoleni"""
+    )
+    conn.commit()
+    dati = cur.fetchall()
+    return dati
+
+
+def iegut_skolotajus():
+    cur = conn.cursor()
+    cur.execute(
+        """SELECT vards, uzvards FROM skolotaji"""
+    )
+    conn.commit()
+    dati = cur.fetchall()
+    return dati

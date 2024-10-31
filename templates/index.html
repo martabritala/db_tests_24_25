@@ -17,29 +17,31 @@
         <form method="post">
             <input type="text" id="name" name="name" placeholder="Vārds">
             <input type="text" id="lastname" name="lastname" placeholder="Uzvārds">
-            <input type="submit" value="Pievienot skolēnu!">
-        </form>  
-        
-        <h3>{{aizsutitais}}</h3>
-
+<br>
 <!-- Skolotāji -->
 
-        <form>
-            <input type="text" id="sk_name" name="sk_name" placeholder="Vārds">
-            <input type="text" id="sk_lastname" name="sk_lastname" placeholder="Uzvārds">
-            <input type="submit" value="Pievienot skolotāju!">
-        </form>  
+            <input type="text" id="sk_name" name="sk_name" placeholder=" Skolotāja vārds">
+            <input type="text" id="sk_lastname" name="sk_lastname" placeholder="Skolotāja uzvārds">
+<br>
 <!-- Priekšmeti   -->
-        <form>
+
             <input type="text" id="prieksmets" name="prieksmets" placeholder="Priekšmeta nosaukums">
-            <input type="submit" value="Pievienot priekšmetu!">
+            <input type="submit" value="Pievienot!">
         </form>    
+        <h3>{{aizsutitais}}</h3>
+
 <h1>Skolēni:</h1>
         <table class="table">
             <tr>
                 <th>Vārds</th>
                 <th>Uzvārds</th>
             </tr>
+            {% for viens in skoleni %}
+            <tr>
+            <td>{{viens[0]}}</td>
+            <td>{{viens[1]}}</td>
+            </tr>
+            {% endfor %}
         </table>
 
         <h1>Skolotāji:</h1>
@@ -48,6 +50,13 @@
                 <th>Vārds</th>
                 <th>Uzvārds</th>
             </tr>
+            {% for viens in skolotaji %}
+            <tr>
+            <td>{{viens[0]}}</td>
+            <td>{{viens[1]}}</td>
+            </tr>
+            {% endfor %}
+
         </table>
         <h1>Priekšmeti:</h1>
         <table class="table">
