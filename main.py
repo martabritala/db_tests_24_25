@@ -31,9 +31,12 @@ def index():
     # Get metode
     return render_template("index.html", skoleni = skoleni_no_db,  skolotaji = skolotaji_no_db)
 
-@app.route("/pievienot")
+@app.route("/pievienot", methods=["POST", "GET"])
 def pievienot():
-    return render_template("pievienot.html")
+    skolotaji = iegut_skolotajus()
+    if request.method == "POST":
+        print(request.form['skolotajs'])
+    return render_template("pievienot.html", skolotaji = skolotaji)
 
 @app.route("/atzimes")
 def atzimes():

@@ -2,9 +2,13 @@
 
 {% block saturs%}
 <!-- Skolēnu atzīmju pievienošana -->
-<form>
+<form method="post">
     <input type="number">
-    <select></select>
+    <select id = "skolotajs" name = "skolotajs">
+        {% for viens in skolotaji %}
+        <option value = "{{viens[2]}}">{{viens[0]}} {{viens[1]}} </option>
+        {% endfor %}
+    </select>
     <select></select>
     <input type="submit" value="Pievienot atzīmi!">
 </form>

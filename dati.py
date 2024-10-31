@@ -71,7 +71,7 @@ def iegut_skolenus():
 def iegut_skolotajus():
     cur = conn.cursor()
     cur.execute(
-        """SELECT vards, uzvards FROM skolotaji"""
+        """SELECT vards, uzvards, id FROM skolotaji"""
     )
     conn.commit()
     dati = cur.fetchall()
