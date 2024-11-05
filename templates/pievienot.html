@@ -20,13 +20,13 @@
     </form>
 <!-- Skolotāju sasaiste ar priekšmetiem -->
 <h3>Skolotāju pievienošana mācību priekšmetiem</h3>
-<form method="post">
+<form method="post" action = "pievienot/skolotaji">
     <select id = "skolotajs" name = "skolotajs">
         {% for viens in skolotaji %}
         <option value = "{{viens[2]}}">{{viens[0]}} {{viens[1]}} </option>
         {% endfor %}
     </select>
-    <select id = "prieksmets2" name = "prieksmets_skolotajam">
+    <select id = "prieksmets2" name = "prieksmets">
         {% for viens in prieksmeti %}
         <option value = "{{viens[1]}}">{{viens[0]}}</option>
         {% endfor %}
@@ -62,8 +62,16 @@
         <th>Vārds</th>
         <th>Uzvārds</th>
         <th>Priekšmets</th>
-        <th>Atzīme</th>
     </tr>
+    {% for viens in skolotajuPrieksmeti %}
+    <tr>
+    <td>{{viens[0]}}</td>
+    <td>{{viens[1]}}</td>
+    <td>{{viens[2]}}</td>
+    </tr>
+    {% endfor %}
+
+
 </table>
 
 

@@ -56,6 +56,21 @@ CREATE TABLE atzimes(
     """)
     conn.commit()
 
+def skolotaju_prieksmetu_tabulas_izveide():
+    cur = conn.cursor()
+    cur.execute("""
+CREATE TABLE skolotajuPrieksmeti(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    skolotaja_id INTEGER NOT NULL,
+    prieksmeta_id INTEGER NOT NULL,
+    FOREIGN KEY (skolotaja_id) REFERENCES skolotaji(id),
+    FOREIGN KEY (prieksmeta_id) REFERENCES prieksmeti(id)
+                )
+    """)
+    conn.commit()
+
+# skolotaju_prieksmetu_tabulas_izveide()
+
 # atzimju_tabulas_izveide()
 
 # skolotaju_tabulas_izveide()
@@ -148,4 +163,24 @@ def iegut_atzimes():
     dati = cur.fetchall()
     return dati
 
-# print(iegut_atzimes())
+def pievienot_skolotaju_prieksmetam(skolotajs, prieksmets):
+    cur = conn.cursor()
+    cur.execute(
+    f"""
+    INSERT INTO skolotajuPrieksmeti(skolotaja_id, prieksmeta_id) VALUES("{skolotajs}","{prieksmets}")
+    """
+    )
+    conn.commit()
+
+def iegut_skolotaju_prieksmetus():
+    cur = conn.cursor()
+    cur.execute(
+        """SELECT vards, uzvards, nosaukums 
+        FROM 
+        (skolotajuPrieksmeti JOIN skolotaji ON skolotaji.id = skolotajuPrieksmeti.skolotaja_id)
+        JOIN prieksmeti ON prieksmeti.id = skolotajuPrieksmeti.prieksmeta_id
+        """
+    )
+    conn.commit()
+    dati = cur.fetchall()
+    return dati
