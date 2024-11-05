@@ -63,6 +63,12 @@
             <tr>
                 <th>Priekšmeta nosaukums</th>
             </tr>
+            {% for viens in prieksmeti %}
+            <tr>
+            <td>{{viens[0]}}</td>
+            </tr>
+            {% endfor %}
+
         </table>
 {% endblock %}
     </body>

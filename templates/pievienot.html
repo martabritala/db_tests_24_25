@@ -3,23 +3,37 @@
 {% block saturs%}
 <!-- Skolēnu atzīmju pievienošana -->
 <form method="post">
-    <input type="number">
+    <h3>Skolēnu atzīmju pievienošana</h3>
+    <input type="number" id="atzime" name="atzime">
+    <select id = "skolens" name = "skolens">
+        {% for viens in skoleni %}
+        <option value = "{{viens[2]}}">{{viens[0]}} {{viens[1]}} </option>
+        {% endfor %}
+    </select>
+    <select id = "prieksmets" name = "prieksmets">
+        {% for viens in prieksmeti %}
+        <option value = "{{viens[1]}}">{{viens[0]}}</option>
+        {% endfor %}
+    </select>
+<!-- Skolotāju sasaiste ar priekšmetiem -->
+<h3>Skolotāju pievienošana mācību priekšmetiem</h3>
+
     <select id = "skolotajs" name = "skolotajs">
         {% for viens in skolotaji %}
         <option value = "{{viens[2]}}">{{viens[0]}} {{viens[1]}} </option>
         {% endfor %}
     </select>
-    <select></select>
-    <input type="submit" value="Pievienot atzīmi!">
+    <select id = "prieksmets2" name = "prieksmets_skolotajam">
+        {% for viens in prieksmeti %}
+        <option value = "{{viens[1]}}">{{viens[0]}}</option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+    <input type="submit" value="Pievienot skolēnam atzīmi vai skolotāju priekšmetam!">
 </form>
 
-<!-- Skolotāju sasaiste ar priekšmetiem -->
-
-<form>
-    <select></select>
-    <select></select>
-    <input type="submit" value="Pievienot skolotāju priekšmetam!">
-</form>
+<hr><hr>
 
 <h1>Skolēnu visas atzīmes:</h1>
 <table class="table">

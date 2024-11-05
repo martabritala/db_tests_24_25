@@ -30,9 +30,22 @@ def skolotaju_tabulas_izveide():
     )
     conn.commit()
 
+def prieksmetu_tabulas_izveide():
+    cur = conn.cursor()
+    cur.execute(
+        """
+        CREATE TABLE prieksmeti(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nosaukums TEXT NOT NULL
+        )
+        """
+    )
+    conn.commit()
 # skolotaju_tabulas_izveide()
 
-# tabulas_izveide()
+# skolenu_tabulas_izveide()
+
+# prieksmetu_tabulas_izveide()
 
 def pievienot_skolenu(vards, uzvards):
     print(vards, uzvards)
@@ -56,12 +69,21 @@ def pievienot_skolotaju(vards, uzvards):
     print(vards, uzvards)
 
 def pievienot_prieksmetu(prieksmets):
-    print(prieksmets)
+    cur = conn.cursor()
+    cur.execute(
+    f"""
+    INSERT INTO prieksmeti(nosaukums) VALUES("{prieksmets}")
+    """
+    )
+    conn.commit()
+
+
+
 
 def iegut_skolenus():
     cur = conn.cursor()
     cur.execute(
-        """SELECT vards, uzvards FROM skoleni"""
+        """SELECT vards, uzvards, id FROM skoleni"""
     )
     conn.commit()
     dati = cur.fetchall()
@@ -72,6 +94,15 @@ def iegut_skolotajus():
     cur = conn.cursor()
     cur.execute(
         """SELECT vards, uzvards, id FROM skolotaji"""
+    )
+    conn.commit()
+    dati = cur.fetchall()
+    return dati
+
+def iegut_prieksmetus():
+    cur = conn.cursor()
+    cur.execute(
+        """SELECT nosaukums, id FROM prieksmeti"""
     )
     conn.commit()
     dati = cur.fetchall()
