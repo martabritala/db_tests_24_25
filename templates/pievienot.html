@@ -46,6 +46,15 @@
         <th>Priekšmets</th>
         <th>Atzīme</th>
     </tr>
+    {% for viens in atzimes %}
+    <tr>
+    <td>{{viens[0]}}</td>
+    <td>{{viens[1]}}</td>
+    <td>{{viens[2]}}</td>
+    <td>{{viens[3]}}</td>
+    </tr>
+    {% endfor %}
+
 </table>
 <h1>Skolotāju piesaiste priekšmetiem:</h1>
 <table class="table">

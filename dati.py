@@ -134,3 +134,18 @@ def pievienot_atzimi(atzime, skolens, prieksmets):
     """
     )
     conn.commit()
+
+def iegut_atzimes():
+    cur = conn.cursor()
+    cur.execute(
+        """SELECT vards, uzvards, nosaukums, atzime 
+        FROM 
+        (atzimes JOIN skoleni ON skoleni.id = atzimes.skolena_id)
+        JOIN prieksmeti ON prieksmeti.id = atzimes.prieksmeta_id
+        """
+    )
+    conn.commit()
+    dati = cur.fetchall()
+    return dati
+
+# print(iegut_atzimes())
