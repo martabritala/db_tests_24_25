@@ -1,0 +1,23 @@
+{% extends "index.html"%}
+
+{% block saturs%}
+<!-- Skolēnu atzīmju pievienošana -->
+<form method="post" action = "/dzest/skolenu">
+    <h3>datu dzēšana</h3>
+    <select id = "skolens" name = "skolens">
+        {% for viens in skoleni %}
+        <option value = "{{viens[2]}}">{{viens[0]}} {{viens[1]}} </option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Dzēst skolēnu!">
+
+    </form>
+<!-- Skolotāju sasaiste ar priekšmetiem -->
+
+
+<hr><hr>
+
+
+
+
+{% endblock %}

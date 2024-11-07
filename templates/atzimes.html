@@ -9,6 +9,15 @@
         <th>Priekšmets</th>
         <th>Vidējā atzīme</th>
     </tr>
+    {% for viens in dati %}
+    <tr>
+    <td>{{viens[0]}}</td>
+    <td>{{viens[1]}}</td>
+    <td>{{viens[2]}}</td>
+    <td>{{viens[3]}}</td>
+    </tr>
+    {% endfor %}
+
 </table>
 
 

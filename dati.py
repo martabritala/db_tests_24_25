@@ -184,3 +184,28 @@ def iegut_skolotaju_prieksmetus():
     conn.commit()
     dati = cur.fetchall()
     return dati
+
+def iegut_videjas_atzimes():
+    cur = conn.cursor()
+    cur.execute(
+        """SELECT skoleni.vards, skoleni.uzvards, prieksmeti.nosaukums, AVG(atzimes.atzime), prieksmeti.id, skoleni.id 
+        FROM (skoleni LEFT JOIN atzimes ON skoleni.id = atzimes.skolena_id) 
+            LEFT JOIN prieksmeti ON prieksmeti.id = atzimes.prieksmeta_id
+        GROUP BY prieksmeti.id, skoleni.id
+        ORDER BY skoleni.uzvards ASC
+        """
+    )
+    conn.commit()
+    dati = cur.fetchall()
+    return dati
+
+
+def dzest_skolenu(id):
+    cur = conn.cursor()
+    cur.execute(
+    f"""
+    DELETE FROM skoleni
+    WHERE id = "{id}"
+    """
+    )
+    conn.commit()
