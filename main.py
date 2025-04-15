@@ -4,7 +4,7 @@ from dati import iegut_skolotajus, pievienot_skolenu, pievienot_prieksmetu, piev
 from dati import pievienot_atzimi, iegut_atzimes, pievienot_skolotaju_prieksmetam, iegut_skolotaju_prieksmetus
 from dati import iegut_videjas_atzimes, dzest_skolenu
 # Lietotājiem un parolēm:
-from dati import parbaudit_lietotaju
+from dati import parbaudit_lietotaju, pievienot_lietotaju
 from dotenv import load_dotenv
 import os
 from cryptography.fernet import Fernet
@@ -13,11 +13,17 @@ from flask import session
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv["ATSLEGA"]
+app.secret_key = os.getenv("ATSLEGA")
 
 
 @app.route("/", methods=["POST","GET"])
 def index():
+    if 'loma' not in session:
+        session['loma'] = 0
+    if 'lietotajvards' not in session:
+        session['lietotajvards'] = ''
+    loma = session['loma']
+    lietotajvards = session['lietotajvards']
     skoleni_no_db = iegut_skolenus()
     # print(skoleni_no_db)
     skolotaji_no_db = iegut_skolotajus()
@@ -41,7 +47,7 @@ def index():
         return render_template("index.html", aizsutitais = dati, skoleni = skoleni_no_db, skolotaji = skolotaji_no_db, prieksmeti = prieksmeti_no_db)
     
     # Get metode
-    return render_template("index.html", skoleni = skoleni_no_db,  skolotaji = skolotaji_no_db, prieksmeti = prieksmeti_no_db)
+    return render_template("index.html", loma = loma, lietotajvards = lietotajvards, skoleni = skoleni_no_db,  skolotaji = skolotaji_no_db, prieksmeti = prieksmeti_no_db)
 
 @app.route("/pievienot")
 def pievienot():
@@ -90,10 +96,33 @@ def dzest_skolenu_lapa():
 @app.route("/login",  methods=["POST", "GET"])
 def login():
     if request.method == "POST":
-        loma = parbaudit_lietotaju(request.form['lietotajvards'], request.form['parole'])
-        print(loma)
+        try:
+            loma = parbaudit_lietotaju(request.form['lietotajvards'], request.form['parole'])
+            session['loma'] = loma[0]
+            session['lietotajvards'] = loma[1]
+        except:
+            session['loma'] = -1
         return redirect("/")
     return render_template("login.html")
+
+@app.route("/register",  methods=["POST", "GET"])
+def register():
+    if request.method == "POST":
+        # try:
+            key = os.getenv('KEY')
+            print(key)
+            cipher_suite = Fernet(key)
+            pievienot_lietotaju(request.form['lietotajvards'], cipher_suite.encrypt(request.form['parole']), request.form['loma'])
+        # except:
+        #     print("lietotājs jau eksistē? Vai arī cita problēma")
+            return redirect("/")
+    return render_template("register.html")
+
+@app.route("/logout")
+def logout():
+    session['loma'] = 0
+    session['lietotajvards'] = ''
+    return redirect("/")
 
 
 

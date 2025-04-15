@@ -11,7 +11,20 @@
 <a href="/pievienot">Atzīmju pievienošana, skolotāju sasaiste</a><br>
 <a href="/atzimes">Vidējās atzīmes</a>
 <a href="/dzest">Dzēst</a>
+<hr>
+{% if loma == 0%}
 <a href="/login">Login</a>
+<a href="/register">Reģistrēties</a>
+{% elif loma == 1%}
+<p> Sveiks, parastais lietotāj {{lietotajvards}}, vai vēlies izlogoties? <a href="/logout">iziet!</a></p>
+{% elif loma == 2%}
+<p>Sveiks, admin {{lietotajvards}}! Vai vēlies izlogoties? <a href="/logout">Iziet!</a></p>
+{% else %}
+Tev nesanāca ielogoties!
+<a href="/login">Login</a>
+<a href="/register">Reģistrēties</a>
+
+{% endif%}
 <hr>
 {% block saturs%}
         <h1>Sveiki!</h1>
