@@ -3,9 +3,18 @@ from flask import Flask, render_template, request, redirect
 from dati import iegut_skolotajus, pievienot_skolenu, pievienot_prieksmetu, pievienot_skolotaju, iegut_skolenus, iegut_prieksmetus
 from dati import pievienot_atzimi, iegut_atzimes, pievienot_skolotaju_prieksmetam, iegut_skolotaju_prieksmetus
 from dati import iegut_videjas_atzimes, dzest_skolenu
+# Lietotājiem un parolēm:
+from dati import parbaudit_lietotaju
+from dotenv import load_dotenv
+import os
+from cryptography.fernet import Fernet
+from flask import session
 
+load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = os.getenv["ATSLEGA"]
+
 
 @app.route("/", methods=["POST","GET"])
 def index():
@@ -76,6 +85,16 @@ def dzest_skolenu_lapa():
     skolena_id = request.form["skolens"]
     dzest_skolenu(skolena_id)
     return redirect("/")
+
+
+@app.route("/login",  methods=["POST", "GET"])
+def login():
+    if request.method == "POST":
+        loma = parbaudit_lietotaju(request.form['lietotajvards'], request.form['parole'])
+        print(loma)
+        return redirect("/")
+    return render_template("login.html")
+
 
 
 if __name__ == '__main__':

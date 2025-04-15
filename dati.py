@@ -3,6 +3,51 @@ import sqlite3
 
 conn = sqlite3.connect("dati.db", check_same_thread=False)
 
+def lietotaju_tabulas_izveide():
+    cur = conn.cursor()
+    cur.execute(
+        """
+        CREATE TABLE lietotaji(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        lietotajvards TEXT NOT NULL,
+        parole TEXT NOT NULL,
+        loma INT NOT NULL
+        )
+        """
+    )
+    conn.commit()
+
+# lietotaju_tabulas_izveide()
+
+def pievienot_lietotaju(lietotajvards, parole, loma):
+    # print(vards, uzvards)
+    cur = conn.cursor()
+    cur.execute(
+        f"""
+        INSERT INTO lietotaji(lietotajvards, parole, loma) VALUES("{lietotajvards}","{parole}", "{loma}")
+        """
+    )
+    conn.commit()
+
+# pievienot_lietotaju("parastais", "parole", 1)
+# pievienot_lietotaju("admins", "admins", 2)
+
+def parbaudit_lietotaju(lietotajvards, parole):
+    try:
+        cur = conn.cursor()
+        cur.execute(
+            f"""
+            SELECT loma, lietotajvards  FROM lietotaji
+            WHERE lietotajvards = '{lietotajvards}'
+            AND parole = '{parole}'
+            """
+        )
+        conn.commit()
+        loma = cur.fetchone()
+    except:
+        loma = [-1, 0]
+    return loma
+
 def skolenu_tabulas_izveide():
     cur = conn.cursor()
     cur.execute(

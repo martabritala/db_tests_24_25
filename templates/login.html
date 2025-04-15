@@ -1,0 +1,22 @@
+{% extends 'index.html'%}
+
+{% block saturs %}
+
+<form method="post">
+    <h3>Lietotājvārds:</h3>
+    <input name="lietotajvards" type="text">
+    <h3>Parole:</h3>
+    <input name="parole" type="password">
+    <!-- Lai reģistrētu:
+    <h3>Loma:</h3>
+    <input name="loma" type="checkbox" value="1"> 
+    <label for="1">Parastais</label>
+    <input name="loma" type="checkbox" value="2"> 
+    <label for="2">Admins</label> 
+    -->
+    <input type="submit" value="Pieslēgties">
+</form>
+
+
+
+{%endblock%}
